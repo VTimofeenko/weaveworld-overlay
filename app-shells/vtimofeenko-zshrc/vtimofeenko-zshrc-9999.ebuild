@@ -27,7 +27,6 @@ BDEPEND=""
 
 src_install() {
 	insinto usr/share/zsh/site-contrib/"${PN}"
-	for file in "${WORKDIR}"/*; do
-		doins -r "${file}"
-	done
+	doins -r "${S}"/*
 }
+
