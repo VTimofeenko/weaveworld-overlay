@@ -9,6 +9,7 @@ DESCRIPTION="My zshrc"
 HOMEPAGE="https://github.com/VTimofeenko/zsh-config"
 KEYWORDS=""
 EGIT_REPO_URI="https://github.com/VTimofeenko/zsh-config.git"
+EGIT_SUBMODULES=()
 
 LICENSE="Unlicense"
 SLOT="0"
@@ -25,8 +26,25 @@ app-shells/zsh-completions
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+MY_INSTALL_DIR="${EPREFIX}/usr/share/zsh/site-contrib/${PN}"
+
+src_prepare() {
+	default
+	for config in zshenv_skel zprofile_skel; do
+		sed -i "s#export ZSH_CONFIG_SHARED_REPO=\"REPLACEME\"#export ZSH_CONFIG_SHARED_REPO=\"${MY_INSTALL_DIR}\"#" "${S}"/configs/skeletons/"$config"
+		elog "Sedded ${config}"
+	done
+}
 src_install() {
-	insinto usr/share/zsh/site-contrib/"${PN}"
+	insinto "${MY_INSTALL_DIR}"
 	doins -r "${S}"/*
 }
 
+pkg_postinst() {
+	elog "The zshrc has been installed into "
+	elog "/${MY_INSTALL_DIR}"
+	elog "To use it, add"
+	elog "export ZSH_CONFIG_SHARED_REPO=\"/${MY_INSTALL_DIR}\""
+	elog "to zshrc (and maybe zprofile)"
+	elog "Alternatively, use the skeleton files from repo"
+}
