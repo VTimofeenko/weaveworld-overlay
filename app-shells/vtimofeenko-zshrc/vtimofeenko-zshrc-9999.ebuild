@@ -3,13 +3,15 @@
 
 EAPI=7
 
-inherit git-r3
+inherit git-verify-signature
 
 DESCRIPTION="My zshrc"
 HOMEPAGE="https://github.com/VTimofeenko/zsh-config"
 KEYWORDS=""
 EGIT_REPO_URI="https://github.com/VTimofeenko/zsh-config.git"
 EGIT_SUBMODULES=()
+
+VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/pubkey_id_vtimofeenko.asc
 
 LICENSE="Unlicense"
 SLOT="0"
@@ -30,6 +32,9 @@ MY_INSTALL_DIR="${EPREFIX}/usr/share/zsh/site-contrib/${PN}"
 
 src_prepare() {
 	default
+
+	git-verify-signature_verify-commit
+
 	for config in zshenv_skel zprofile_skel; do
 		sed -i "s#export ZSH_CONFIG_SHARED_REPO=\"REPLACEME\"#export ZSH_CONFIG_SHARED_REPO=\"${MY_INSTALL_DIR}\"#" "${S}"/configs/skeletons/"$config"
 		elog "Sedded ${config}"
