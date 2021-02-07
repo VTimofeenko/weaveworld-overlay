@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit git-verify-signature
+inherit git-r3 verify-sig git-verify-signature
 
 DESCRIPTION="My zshrc"
 HOMEPAGE="https://github.com/VTimofeenko/zsh-config"
@@ -17,26 +17,23 @@ LICENSE="Unlicense"
 SLOT="0"
 IUSE=""
 
-DEPEND="
->=app-shells/zsh-5.0
+DEPEND=">=app-shells/zsh-5.0
 app-shells/zsh-autosuggestions
 app-shells/zsh-async
 app-shells/fzf
 app-shells/zsh-syntax-highlighting
-app-shells/zsh-completions
-"
+app-shells/zsh-completions"
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="verify-sig? ( app-crypt/openpgp-keys-vtimofeenko )"
 
 MY_INSTALL_DIR="${EPREFIX}/usr/share/zsh/site-contrib/${PN}"
 
 src_prepare() {
 	default
 
-	git-verify-signature_verify-commit
-
 	for config in zshenv_skel zprofile_skel; do
-		sed -i "s#export ZSH_CONFIG_SHARED_REPO=\"REPLACEME\"#export ZSH_CONFIG_SHARED_REPO=\"${MY_INSTALL_DIR}\"#" "${S}"/configs/skeletons/"$config"
+		sed -i "s;export ZSH_CONFIG_SHARED_REPO=\"REPLACEME\";export ZSH_CONFIG_SHARED_REPO=\"${MY_INSTALL_DIR}\";"\
+			"${S}"/configs/skeletons/"$config"
 		elog "Sedded ${config}"
 	done
 }
