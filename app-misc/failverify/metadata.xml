@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>overlay.maintain@vtimofeenko.com</email>
+		<description>Vladimir Timofeenko</description>
+	</maintainer>
+	<longdescription>Ebuild to test verify-signature eclass. By default - fails installation</longdescription>
+
+	<use>
+		<flag name="unsigned_commit">Unsigned commit. Install fails.</flag>
+		<flag name="unsigned_tag">Unsigned tag. Install fails.</flag>
+		<flag name="signed_commit">Signed commit. Install succeeds.</flag>
+		<flag name="signed_tag">Signed tag. Install succeeds.</flag>
+	</use>
+</pkgmetadata>
+
