@@ -1,0 +1,3 @@
+[submodule "submodules/git-verify-signature.eclass"]
+	path = submodules/git-verify-signature.eclass
+	url = https://github.com/VTimofeenko/git-verify-signature.eclass
