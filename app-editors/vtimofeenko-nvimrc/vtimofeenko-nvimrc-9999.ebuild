@@ -6,9 +6,9 @@ EAPI=7
 inherit git-verify-signature
 
 DESCRIPTION="My nvim config"
-HOMEPAGE="https://git.home.local/VT/nvim-config"
+HOMEPAGE="https://github.com/VTimofeenko/nvim-config"
 SRC_URI=""
-EGIT_REPO_URI="https://git.home.local/VT/nvim-config"
+EGIT_REPO_URI="https://github.com/VTimofeenko/nvim-config"
 VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/pubkey_id_vtimofeenko.asc
 
 LICENSE="Unlicense"
